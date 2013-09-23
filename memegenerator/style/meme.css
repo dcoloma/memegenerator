@@ -1,0 +1,55 @@
+#getPictureButton {
+		position:absolute;
+		top: 15px;
+		left: 5px;
+}
+
+#shareMemeButton {
+	    position:absolute;
+	    top: 15px;
+	    right: 5px;
+}
+
+#top-line, #bottom-line {
+  padding: 0.5em;
+  border: 1px solid #d4d4d4;
+  font: inherit;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 4px;
+  line-height: 1.5em;
+  /* some box shadow sauce :D */
+  box-shadow: inset 0px 2px 2px #ececec;
+}
+
+#canvas {
+   display: block;
+   margin: 1em auto;
+}
+
+body {
+  text-align: center;
+  background-color: #000000;
+  font-family: sans-serif, Verdana, Arial, serif;
+}
+
+.myButton{
+  width:40px; /*same as the height*/
+  height:40px; /*same as the width*/
+  background-color:#ffc14f;
+  border:1px solid #ffc14f; /*same colour as the background*/
+  color:#fff;
+  font-size:1.6em;
+  /*set the border-radius at half the size of the width and height*/
+  border-radius: 20px;
+  /*give the button a small drop shadow*/
+  box-shadow: 2px 2px 10px rgba(0,0,0, .75);
+}
+    
+/***NOW STYLE THE BUTTON'S HOVER STATE***/
+.myButton:hover{
+  background:#e09b1b;
+  border:1px solid #e09b1b;
+  /*reduce the size of the shadow to give a pushed effect*/
+  box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+}
+

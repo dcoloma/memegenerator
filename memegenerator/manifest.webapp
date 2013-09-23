@@ -1,0 +1,15 @@
+{
+  "name": "Meme Generator",
+  "description": "Meme Generator",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Daniel Coloma",
+    "url": "https://twitter.com/danielcoloma"
+  },
+  "default_locale": "en-US",
+  "icons": {
+    "120": "/style/icons/icon.png",
+    "60": "/style/icons/60/icon.png"
+  },
+  "orientation": "portrait-primary"
+}
