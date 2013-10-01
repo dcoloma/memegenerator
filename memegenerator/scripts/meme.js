@@ -106,7 +106,7 @@ window.Meme = function(image, canvas, top, bottom) {
 
 		// Variable setup
 		topOrBottom = topOrBottom || 'top';
-		var fontSize = (canvas.height / 10);
+		var fontSize = (canvas.height / 12);
 		var x = canvas.width / 2;
 		if (typeof y === 'undefined') {
 			y = fontSize;
@@ -118,7 +118,7 @@ window.Meme = function(image, canvas, top, bottom) {
 		if (context.measureText(text).width > (canvas.width * 1.1)) {
 
 			// Split word by word
-			var words = text.split(' ');
+			var words = text.toString().split(' ');
 			var wordsLength = words.length;
 
 			// Start with the entire string, removing one word at a time. If
@@ -171,8 +171,8 @@ window.Meme = function(image, canvas, top, bottom) {
 		context.fillStyle = 'white';
 		context.strokeStyle = 'black';
 		context.lineWidth = 2;
-		var fontSize = (canvas.height / 10);
-		context.font = fontSize + 'px Impact';
+		var fontSize = (canvas.height / 12);
+		context.font = fontSize + 'px Coda Caption';
 		context.textAlign = 'center';
 
 		// Draw them!
@@ -182,3 +182,4 @@ window.Meme = function(image, canvas, top, bottom) {
 	};
 
 };
+

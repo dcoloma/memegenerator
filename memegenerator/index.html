@@ -2,29 +2,58 @@
 <html>
 <head>
   <title>Meme.js demo</title>
+  <style type="text/css">
+
+@font-face {
+  font-family: 'Coda Caption';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Coda Caption Heavy'), local('CodaCaption-Heavy'), url(style/codac.woff) format('woff');
+}
+
+  </style>
   <link href="style/meme.css" rel="stylesheet">
   <script src="scripts/meme.js"></script>
   <script src="scripts/MemeApp.js"></script>
+  <script src="scripts/hammer.min.js"></script>
 </head>
 <body>
-  <div>
-    <button type="submit" class="myButton" id="getPictureButton">
-      <img src="style/images/camera.png" alt="Get Picture" />
-    </button>
-  <div>
-  <div>
-    <button type="submit" class="myButton" id="shareMemeButton">
-      <img src="style/images/share.png" alt="Share Meme" />
-    </button>
-  </div>
 
-  <canvas id="canvas" width="220" height="330"></canvas>
-  <div>
-    <input id="top-line" placeholder="top line">
+
+
+                    <canvas id="canvas" width="260" height="390"></canvas>
+
+           
+  <div id="placeholder">
+    <button type="submit" class="a-btn" id="getPictureButton">
+            <img src="style/images/camera.png" alt="Photos" />
+    </button>
+
+
+         <button type="submit" class="a-btn" id="shareMemeButton">
+            <img src="style/images/share.png" alt="Photos" />
+     </button>
   </div>
-  <div><br></div>
+  
+  
+
+<div id="openModal" class="modalDialog">
+  
   <div>
-    <input id="bottom-line" placeholder="bottom line">
+    <a href="javascript:updateAndClose()" title="Close" class="close">OK</a>
+     <div id="textboxes">
+      <input id="top-line" placeholder="top line">
+      <input id="bottom-line" placeholder="bottom line">
+    </div>
   </div>
+</div>
+
+<div id="divModalGrid" class="modalDialogG">
+  <div id="titleGrid"> Select the Meme <a href="#closeGrid" class="closeGrid">X</a></div>
+  <div id="imageGrid">
+  </div>
+</div>
+
+
 </body>
 </html>

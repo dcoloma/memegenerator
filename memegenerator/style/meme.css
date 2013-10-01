@@ -1,55 +1,214 @@
-#getPictureButton {
-		position:absolute;
-		top: 15px;
-		left: 5px;
-}
 
-#shareMemeButton {
-	    position:absolute;
-	    top: 15px;
-	    right: 5px;
+* {
+    -moz-box-sizing: border-box;
 }
-
+@font-face {
+    font-family: "Coda Caption";
+    font-style: normal;
+    font-weight: 800;
+    src: local("Coda Caption Heavy"), local("CodaCaption-Heavy"), url("codac.woff") format("woff");
+}
+.a-btn {
+    background: none repeat scroll 0 0 #CD6723;
+    border: 0 solid #FF4E00;
+    border-radius: 10px;
+    clear: both;
+    height: 40px;
+    margin: 10px 0;
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: box-shadow 0.3s ease-in-out 0s;
+    width: 40px;
+}
+.a-btn img {
+    border: medium none;
+}
+.a-btn:hover {
+    box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8) inset, 1px 1px 5px rgba(0, 0, 0, 0.4);
+}
+.a-btn:active {
+    background: none repeat scroll 0 0 #CD6723;
+    border-color: #FF4E00;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4) inset;
+    position: relative;
+    top: 1px;
+}
 #top-line, #bottom-line {
-  padding: 0.5em;
-  border: 1px solid #d4d4d4;
-  font: inherit;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 4px;
-  line-height: 1.5em;
-  /* some box shadow sauce :D */
-  box-shadow: inset 0px 2px 2px #ececec;
+    -moz-font-feature-settings: inherit;
+    -moz-font-language-override: inherit;
+    border: 1px solid #D4D4D4;
+    border-radius: 5px;
+    box-shadow: 0 2px 2px #ECECEC inset;
+    display: block;
+    font-family: inherit;
+    font-kerning: inherit;
+    font-size: inherit;
+    font-size-adjust: inherit;
+    font-stretch: inherit;
+    font-style: inherit;
+    font-synthesis: inherit;
+    font-variant: inherit;
+    font-variant-alternates: inherit;
+    font-variant-caps: inherit;
+    font-variant-east-asian: inherit;
+    font-variant-ligatures: inherit;
+    font-variant-numeric: inherit;
+    font-variant-position: inherit;
+    font-weight: inherit;
+    line-height: 1.5em;
+    margin: 2px 2px 2px 0;
+    padding: 0.25em;
+    width: 90%;
 }
-
 #canvas {
-   display: block;
-   margin: 1em auto;
+    display: block;
+    margin: 1em auto;
 }
-
 body {
-  text-align: center;
-  background-color: #000000;
-  font-family: sans-serif, Verdana, Arial, serif;
+    background-color: #333333;
+    font-family: sans-serif,Verdana,Arial,serif;
+    margin: 0;
+    text-align: center;
+}
+#getPictureButton {
+    left: 10px;
+    position: fixed;
+    top: 410px;
+}
+#title {
+    left: 10px;
+    position: fixed;
+    top: 0;
+}
+#shareMemeButton {
+    position: fixed;
+    right: 10px;
+    top: 410px;
+}
+#placeholder {
+    background-color: #CD6723;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    top: 420px;
+    width: 100%;
+}
+.modalDialog {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    font-family: Arial,Helvetica,sans-serif;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: opacity 400ms ease-in 0s;
+    z-index: 99999;
+}
+.modalDialog:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+.modalDialog > div {
+    background: none repeat scroll 0 0 #2C393B;
+    border-radius: 10px;
+    margin: 10% auto;
+    padding: 5px 20px 13px;
+    position: absolute;
+    right: 5%;
+    top: 100px;
+    width: 300px;
+}
+.close {
+    background: none repeat scroll 0 0 #FF4E00;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px #000000;
+    color: #FFFFFF;
+    font-weight: bold;
+    line-height: 25px;
+    position: absolute;
+    right: -12px;
+    text-align: center;
+    text-decoration: none;
+    top: -10px;
+    width: 40px;
+}
+.close:hover {
+    background: none repeat scroll 0 0 #5F9B0A;
+}
+#imageGrid {
+    font-size: 0;
+    left: 0;
+    top: 40px;
+    width: 100%;
+}
+#imageGrid a {
+    display: inline-block;
+}
+#imageGrid a:hover {
+    border-color: #FFFFFF;
+}
+#imageGrid img {
+    border-radius: 10px;
+    height: 90px;
+    margin: 10px 5px 5px;
+    width: 90px;
 }
 
-.myButton{
-  width:40px; /*same as the height*/
-  height:40px; /*same as the width*/
-  background-color:#ffc14f;
-  border:1px solid #ffc14f; /*same colour as the background*/
-  color:#fff;
-  font-size:1.6em;
-  /*set the border-radius at half the size of the width and height*/
-  border-radius: 20px;
-  /*give the button a small drop shadow*/
-  box-shadow: 2px 2px 10px rgba(0,0,0, .75);
+.closeGrid {
+    background: none repeat scroll 0 0 #FF4E00;
+    border-radius: 14px;
+    box-shadow: 1px 1px 3px #000000;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    left: 0;
+    line-height: 40px;
+    position: absolute;
+    text-align: center;
+    vertical-align: center;
+    text-decoration: none;
+    top: 0;
+    width: 40px;
 }
-    
-/***NOW STYLE THE BUTTON'S HOVER STATE***/
-.myButton:hover{
-  background:#e09b1b;
-  border:1px solid #e09b1b;
-  /*reduce the size of the shadow to give a pushed effect*/
-  box-shadow: 0px 0px 5px rgba(0,0,0, .75);
+.closeGrid:hover {
+    background: none repeat scroll 0 0 #5F9B0A;
 }
-
+#titleGrid {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: Coda Caption;
+    height: 40px;
+    left: 0px;
+    position: absolute;
+    top: 0px;
+    color: white;
+    padding: 7px;
+}
+.modalDialogG {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.3);
+    bottom: 0;
+    font-family: Arial,Helvetica,sans-serif;
+    left: 0;
+    opacity: 0;
+    overflow: scroll;
+    pointer-events: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: opacity 400ms ease-in 0s;
+    z-index: 99999;
+}
+.modalDialogG:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+.modalDialogG > div {
+    background: none repeat scroll 0 0 #2C393B;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
