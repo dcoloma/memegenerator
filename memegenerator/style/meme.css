@@ -50,11 +50,15 @@ body {
     margin: 1em auto;
 }
 
-#imageGrid {
-    font-size: 0;
-    left: 0;
-    top: 5rem;
+section[role="region"] > header:first-child.fixed {
+    position: absolute ;
     width: 100%;
+}
+
+#imageGrid {
+    height: calc(100% - 5rem);
+    overflow: scroll;
+    top: 5rem;
 }
 #imageGrid a {
     display: inline-block;
@@ -65,7 +69,7 @@ body {
 #imageGrid img {
     border-radius: 0.5rem;
     height: 9rem;
-    margin: 0.9rem 0.4rem 0.4rem;
+    margin: 0.4rem 0.4rem 0.9rem;
     width: 9rem;
 }
 
@@ -82,15 +86,46 @@ body {
     width: 28rem;
     left: 2rem;
 }
-#ok-text{
-    position: absolute;
-    top: 22rem;
-    left: 2rem;
-    width: 28rem;
-}
 
 #help{
     background-color: white;
+    text-align: left;
+}
+
+#help .content{
+    height: calc(100% - 5rem);
+    overflow: scroll;
+    top: 5rem;
+    position: absolute;
+}
+
+#help [data-type="list"] {
+    margin: 1rem 0;
+}
+
+#help [data-type="list"] li {
+    height: auto;
+}
+
+#help [data-type="list"] aside {
+    background: #333;
+    border-radius: 0.3rem;
+    height: 4rem;
+    overflow: hidden;
+    padding: 0.5rem;
+    width: 4rem;
+    margin: -1.5rem 1rem 0 0;
+}
+
+#help [data-type="list"] li p {
+    white-space: inherit;
+    line-height: 2rem;
+    padding-bottom: 1rem;
+    margin: 1rem 0 0 0;
+}
+
+#help [data-type="list"] li p:first-of-type {
+    margin: 1rem 0 0 5rem;
 }
 
 .helpItem{
