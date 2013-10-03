@@ -10,13 +10,13 @@ function init(){
 
   document.getElementById("getPictureButton").addEventListener('click', getpicture);
   document.getElementById("shareMemeButton").addEventListener('click',shareMeme);
-
-  // Generating Meme every time key is pressed seems to crash B2G :(
-  //document.getElementById("top-line").addEventListener('keyup', updateMeme);
-  //document.getElementById("bottom-line").addEventListener('keyup', updateMeme);
+  document.getElementById("changeText").addEventListener('click',function(){window.location.href="#openModal"});
+  document.getElementById("memeGallery").addEventListener('click',function(){window.location.href="#divModalGrid"});
+  document.getElementById("helpButton").addEventListener('click',function(){window.location.href="#help"});
 
   var canvas = document.getElementById('canvas');
     var hammertime = Hammer(canvas).on("hold", function(event) {
+        console.log("longtap");
         window.location.href = '#openModal';
     });
 

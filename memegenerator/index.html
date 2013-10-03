@@ -13,6 +13,15 @@
 
   </style>
   <link href="style/meme.css" rel="stylesheet">
+  <link href="bb/toolbars.css" rel="stylesheet" type="text/css">
+  <link href="bb/icons/styles/action_icons.css" rel="stylesheet" type="text/css">
+  <link href="bb/icons/styles/settings_icons.css" rel="stylesheet" type="text/css">
+  <link href="bb/buttons.css" rel="stylesheet" type="text/css">
+  <link href="bb/icons/styles/media_icons.css" rel="stylesheet" type="text/css">
+  <link href="bb/icons/styles/settings_icons.css" rel="stylesheet" type="text/css">
+  <link href="bb/input_areas.css" rel="stylesheet" type="text/css">
+  <link href="bb/headers.css" rel="stylesheet" type="text/css">
+  <link href="bb/lists.css" rel="stylesheet" type="text/css">
   <script src="scripts/meme.js"></script>
   <script src="scripts/MemeApp.js"></script>
   <script src="scripts/hammer.min.js"></script>
@@ -21,39 +30,102 @@
 
 
 
-                    <canvas id="canvas" width="260" height="390"></canvas>
+  <canvas id="canvas" width="260" height="390"></canvas>
+  <!--<canvas id="canvas"></canvas>-->
 
-           
-  <div id="placeholder">
-    <button type="submit" class="a-btn" id="getPictureButton">
-            <img src="style/images/camera.png" alt="Photos" />
-    </button>
-
-
-         <button type="submit" class="a-btn" id="shareMemeButton">
-            <img src="style/images/share.png" alt="Photos" />
-     </button>
+  <div role="toolbar">
+    <ul>
+      <li><button class="media-icon camera" id="getPictureButton"></button></li>
+      <li><button class="media-icon media-gridview" id="memeGallery"></button></li>
+      <li><button class="action-icon compose" id="changeText"></button></li>
+      <li><button class="action-icon email-share" id="shareMemeButton"></button></li>
+    </ul>
+    <ul>
+      <li><button class="settings-icon help" id="helpButton"></button></li>
+    </ul>
   </div>
-  
   
 
 <div id="openModal" class="modalDialog">
   
   <div>
-    <a href="javascript:updateAndClose()" title="Close" class="close">OK</a>
-     <div id="textboxes">
-      <input id="top-line" placeholder="top line">
-      <input id="bottom-line" placeholder="bottom line">
-    </div>
+     <div>
+       <input class="myform" type="text" id="top-line" placeholder="top line" required="">
+       <input class="myform" type="text" id="bottom-line" placeholder="bottom line" required="">
+     </div>
+     <p>
+       <a class="button" role="button" id="ok-text" href="javascript:updateAndClose()">OK</a>
+     </p>
   </div>
 </div>
 
-<div id="divModalGrid" class="modalDialogG">
-  <div id="titleGrid"> Select the Meme <a href="#closeGrid" class="closeGrid">X</a></div>
+<div id="divModalGrid" class="modalDialog">
+
+  <section class="skin-dark" role="region">
+  <header>
+    <a href="#"><span class="icon icon-back">back</span></a>
+    <h1>Select Meme </h1>
+  </header>
+</section>
+  <!--<div id="titleGrid"> Select the Meme <a href="#closeGrid" class="closeGrid">X</a></div>-->
   <div id="imageGrid">
   </div>
 </div>
 
+<div id="help" class="modalDialog">
+<section class="skin-dark" role="region">
+  <header>
+    <a href="#"><span class="icon icon-close">close</span></a>
+    <h1>Help</h1>
+  </header>
+<article class="content scrollable header">
+      <header>
+        <h2>Selecting Picture</h2>
+      </header>
+  <div>            <!--<aside class="icon settings-icon"><img src="style/images/camera.png"></aside>-->
+
+<section class="example icons settings">
+
+    <article data-type="list">
+        <ul>
+            <li>
+                <aside class="icon settings-icon bluetooth"></aside>
+                <p>Bluetooth</p>
+            </li>
+            <li></li>
+        </ul>
+    </article>
+
+</section>
+
+       </div>
+         <div>            <!--<aside class="icon settings-icon"><img src="style/images/camera.png"></aside>-->
+        <img src="style/images/camera.png">
+            <span>Click on Camera Icon to take a picture with your camera or select a picture from the device gallery</span>
+       </div>
+         <div>            <!--<aside class="icon settings-icon"><img src="style/images/camera.png"></aside>-->
+            <img src="style/images/camera.png">
+            <span>Click on Grid Icon to select a meme from our Meme gallery</span>
+       </div>
+  </article>
+    <header>
+        <h2>Adding Text</h2>
+      </header>
+         <div>            <!--<aside class="icon settings-icon"><img src="style/images/camera.png"></aside>-->
+            <img src="style/images/camera.png">
+            <span>Click on Edit Icon to change the text of your Meme</span>
+       </div>
+      <header>
+        <h2>Sharing your meme</h2>
+      </header>
+         <div>            <!--<aside class="icon settings-icon"><img src="style/images/camera.png"></aside>-->
+            <img src="style/images/share.png">
+            <span>Click on Share Icon to share your Meme with your friends. You can do it via e-mail, MMS, Twitter...</span>
+       </div>
+</article>
+
+
+</div>
 
 </body>
 </html>
