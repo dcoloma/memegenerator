@@ -22,6 +22,7 @@
   <link href="bb/input_areas.css" rel="stylesheet" type="text/css">
   <link href="bb/headers.css" rel="stylesheet" type="text/css">
   <link href="bb/lists.css" rel="stylesheet" type="text/css">
+  <link href="bb/confirm.css" rel="stylesheet" type="text/css">
   <script src="scripts/meme.js"></script>
   <script src="scripts/MemeApp.js"></script>
   <script src="scripts/hammer.min.js"></script>
@@ -41,28 +42,26 @@
       <li><button class="action-icon email-share" id="shareMemeButton"></button></li>
     </ul>
     <ul>
-      <li><button class="settings-icon help" id="helpButton"></button></li>
+      <li><button class="action-icon calendar-agendaview" id="helpButton"></button></li>
     </ul>
   </div>
   
 
 <div id="openModal" class="modalDialog">
-  
-  <div>
-     <div>
-       <input class="myform" type="text" id="top-line" placeholder="top line" required="">
-       <input class="myform" type="text" id="bottom-line" placeholder="bottom line" required="">
-     </div>
-     <p>
-       <a class="button" role="button" id="ok-text" href="javascript:updateAndClose()">OK</a>
-     </p>
-  </div>
+  <form role="dialog" data-type="confirm">
+    <section>
+      <input class="myform" type="text" id="top-line" placeholder="top line">
+       <input class="myform" type="text" id="bottom-line" placeholder="bottom line">
+    </section>
+    <menu>
+      <button id="ok-text" role="button" onclick="javascript:updateAndClose()" class="recommend full">Ok</button>
+    </menu>
+  </form>
 </div>
 
 <div id="divModalGrid" class="modalDialog">
-
   <section class="skin-dark" role="region">
-  <header>
+  <header class="fixed">
     <a href="#"><span class="icon icon-back">back</span></a>
     <h1>Select Meme </h1>
   </header>
@@ -74,7 +73,7 @@
 
 <div id="help" class="modalDialog">
 <section class="skin-dark" role="region">
-  <header>
+  <header class="fixed">
     <a href="#"><span class="icon icon-close">close</span></a>
     <h1>Help</h1>
   </header>
@@ -86,24 +85,25 @@
             <li>
                 <aside class="icon media-icon camera"></aside>
                 <p>Select a Picture</p>
+                <p>Click on Camera Icon to take a picture with your Camera or select a picture from the device gallery</p>
             </li>
-            <p>Click on Camera Icon to take a picture with your Camera or select a picture from the device gallery</p>
-                       <li>
+            
+            <li>
                 <aside class="icon media-icon media-gridview"></aside>
                 <p>Select a Predefined Meme</p>
+                <p>Click on Grid Icon to select a meme from our Meme gallery</p>
             </li>
-            <p>Click on Grid Icon to select a meme from our Meme gallery</p>
        
             <li>
                 <aside class="icon action-icon compose"></aside>
                 <p>Change the text</p>
+                <p>Click on the edit icon to change the text of your meme, be creative!</p>
             </li>
-            <p>Click on the edit icon to change the text of your meme, be creative!</p>
-                       <li>
+            <li>
                 <aside class="icon action-icon email-share"></aside>
                 <p>Share your Meme</p>
+                <p>By clicking on the share button you can send your Meme via e-mail, twitter, MMS, Bluetooth...</p>
             </li>
-            <p>By clicking on the share button you can send your Meme via e-mail, twitter, MMS, Bluetooth...</p>
         </ul>
     </article>
 </section>
