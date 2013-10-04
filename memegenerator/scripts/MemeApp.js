@@ -5,6 +5,13 @@ window.addEventListener('load', init);
 
 function init(){
   console.log("--->>> init");
+  console.log("--->>> width " + window.innerWidth)
+  console.log("--->>> height " + window.innerHeight)
+
+  var canvas = document.getElementById("canvas");
+  canvas.width = window.innerWidth/1.15;
+  canvas.height = window.innerHeight/1.15;
+  
   // Create example Meme
   Meme("style/images/memes/meme-2.png", 'canvas', "Tap on image to view gallery", "long tap to change text");
 
@@ -114,7 +121,6 @@ function createMemeFromGallery(picture)
   function fillImageGrid()
   {
     grid = document.getElementById('imageGrid');
-    //ih = "<a href='#closeGrid' title='Close' class='closeGrid'>Cancel</a>";
     ih="";
     for (var i = 0; i < 16; i++)
       ih += "<a href='javascript:createMemeFromGallery(\"style/images/memes/meme-" +
