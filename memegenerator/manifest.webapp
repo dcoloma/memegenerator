@@ -6,10 +6,24 @@
     "name": "Daniel Coloma",
     "url": "https://twitter.com/danielcoloma"
   },
-  "default_locale": "en-US",
+  "default_locale": "es",
+  "locales": {
+    "en-US": {
+      "name": "Memes",
+      "description": "Meme Generator"
+    },
+    "es": {
+      "name": "Memes",
+      "description": "Creador de Memes"
+    },
+    "pt-BR": {
+      "name": "Memes",
+      "description": "Meme Generator"
+    }
+  },
   "icons": {
-    "120": "/style/icons/icon.png",
-    "60": "/style/icons/60/icon.png"
+    "64": "/style/icons/meme64.png",
+    "128": "/style/icons/meme128.png"
   },
   "orientation": "portrait-primary"
 }

@@ -75,6 +75,12 @@ window.Meme = function(image, canvas, top, bottom) {
 
 	// Get context
 	var context = canvas.getContext('2d');
+	context.fillStyle = 'white';
+	context.strokeStyle = 'black';
+	context.lineWidth = 2;
+	var fontSize = (canvas.height / 12);
+	context.font = fontSize + 'px Coda Caption';
+	context.textAlign = 'center';
 
 	/*
 	Deal with the image
@@ -167,15 +173,7 @@ window.Meme = function(image, canvas, top, bottom) {
 		// Draw the image
 		context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-		// Set up text variables
-		context.fillStyle = 'white';
-		context.strokeStyle = 'black';
-		context.lineWidth = 2;
-		var fontSize = (canvas.height / 12);
-		context.font = fontSize + 'px Coda Caption';
-		context.textAlign = 'center';
-
-		// Draw them!
+		// Draw text!
 		drawText(top, 'top');
 		drawText(bottom, 'bottom');
 

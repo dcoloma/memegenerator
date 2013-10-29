@@ -1,3 +1,6 @@
+var defaultImage = "style/images/memes/meme-2.png";
+var numImages = 16;
+
 var picBlob = null;
 var memeGalleryPic = null;
 
@@ -12,14 +15,14 @@ function init(){
   canvas.width = window.innerWidth/1.15;
   canvas.height = window.innerHeight/1.15;
   
-  // Create example Meme
-  Meme("style/images/memes/meme-2.png", 'canvas', "Tap on image to view gallery", "long tap to change text");
-
   document.getElementById("getPictureButton").addEventListener('click', getpicture);
   document.getElementById("shareMemeButton").addEventListener('click',shareMeme);
   document.getElementById("changeText").addEventListener('click',function(){window.location.href="#openModal"});
   document.getElementById("memeGallery").addEventListener('click',function(){window.location.href="#divModalGrid"});
   document.getElementById("helpButton").addEventListener('click',function(){window.location.href="#help"});
+
+  document.getElementById("top-line").setAttribute("placeholder", navigator.mozL10n.get("topLinePH"));
+  document.getElementById("bottom-line").setAttribute("placeholder", navigator.mozL10n.get("bottomLinePH"));
 
   var canvas = document.getElementById('canvas');
     var hammertime = Hammer(canvas).on("hold", function(event) {
@@ -32,7 +35,12 @@ function init(){
         window.location.href = '#divModalGrid';
     });
 
+t
+  console.log("Language is " + navigator.mozL10n.language.code);
+
+  Meme(defaultImage, 'canvas', navigator.mozL10n.get("topLine"), navigator.mozL10n.get("bottomLine"));
   fillImageGrid();
+
 }
 
 function getpicture(evt)
@@ -83,8 +91,15 @@ function createMeme()
 {
   console.log("--->>> createMeme"); 
   if (picBlob == null)
-    Meme("style/images/memes/meme-2.png", 'canvas', 
+  {
+
+    var img = document.createElement("img");
+    img.src = defaultImage;
+
+    Meme(img, 'canvas', 
       document.getElementById('top-line').value, document.getElementById('bottom-line').value);
+
+  }
   else
   {
     var img = document.createElement("img");
@@ -122,7 +137,7 @@ function createMemeFromGallery(picture)
   {
     grid = document.getElementById('imageGrid');
     ih="";
-    for (var i = 0; i < 16; i++)
+    for (var i = 0; i < numImages; i++)
       ih += "<a href='javascript:createMemeFromGallery(\"style/images/memes/meme-" +
             i.toString() + ".png\")'><img src=\"style/images/previews/preview-" + 
             i.toString() + ".png\"></a>";

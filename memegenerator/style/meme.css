@@ -75,14 +75,14 @@ section[role="region"] > header:first-child.fixed {
 
 #top-line {
     position: absolute;
-    top: 12rem;
+    top: 8rem;
     width: 28rem;
     left: 2rem;
 }
 
 #bottom-line {
     position: absolute;
-    top: 17rem;
+    top: 13rem;
     width: 28rem;
     left: 2rem;
 }
@@ -132,4 +132,8 @@ section[role="region"] > header:first-child.fixed {
   margin: 0px;
   position: fixed;
   left: 0px;
+}
+
+.myform{
+  
 }

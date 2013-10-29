@@ -12,6 +12,8 @@
 }
 
   </style>
+  <script defer src="scripts/l10n.js" charset="utf-8"></script>
+  <link rel="resource" type="application/l10n" href="locales/locales.ini" />
   <link href="style/meme.css" rel="stylesheet">
   <link href="bb/toolbars.css" rel="stylesheet" type="text/css">
   <link href="bb/icons/styles/action_icons.css" rel="stylesheet" type="text/css">
@@ -29,11 +31,7 @@
 </head>
 <body>
 
-
-
   <canvas id="canvas" width="260" height="390"></canvas>
-  <!--<canvas id="canvas"></canvas>-->
-
   <div role="toolbar">
     <ul>
       <li><button class="media-icon camera" id="getPictureButton"></button></li>
@@ -45,7 +43,6 @@
       <li><button class="action-icon calendar-agendaview" id="helpButton"></button></li>
     </ul>
   </div>
-  
 
 <div id="openModal" class="modalDialog">
   <form role="dialog" data-type="confirm">
@@ -63,7 +60,7 @@
   <section class="skin-dark" role="region">
   <header class="fixed">
     <a href="#"><span class="icon icon-back">back</span></a>
-    <h1>Select Meme </h1>
+    <h1 data-l10n-id="selectMeme">Select Meme </h1>
   </header>
 </section>
   <!--<div id="titleGrid"> Select the Meme <a href="#closeGrid" class="closeGrid">X</a></div>-->
@@ -75,7 +72,7 @@
 <section class="skin-dark" role="region">
   <header class="fixed">
     <a href="#"><span class="icon icon-close">close</span></a>
-    <h1>Help</h1>
+    <h1 data-l10n-id="helpH">Help</h1>
   </header>
 <article class="content scrollable header">
   <div>            
@@ -84,30 +81,29 @@
         <ul>
             <li>
                 <aside class="icon media-icon camera"></aside>
-                <p>Select a Picture</p>
-                <p>Click on Camera Icon to take a picture with your Camera or select a picture from the device gallery</p>
+                <p data-l10n-id="helpSelectPictureH">Select a Picture</p>
+                <p data-l10n-id="helpSelectPictureT">Click on Camera Icon to take a picture with your Camera or select a picture from the device gallery</p>
             </li>
             
             <li>
                 <aside class="icon media-icon media-gridview"></aside>
-                <p>Select a Predefined Meme</p>
-                <p>Click on Grid Icon to select a meme from our Meme gallery</p>
+                <p data-l10n-id="helpSelectFromGalleryH">Select a Predefined Meme</p>
+                <p data-l10n-id="helpSelectFromGalleryT">Click on Grid Icon to select a meme from our Meme gallery</p>
             </li>
        
             <li>
                 <aside class="icon action-icon compose"></aside>
-                <p>Change the text</p>
-                <p>Click on the edit icon to change the text of your meme, be creative!</p>
+                <p data-l10n-id="helpChangeTextH">Change the text</p>
+                <p data-l10n-id="helpChangeTextT">Click on the edit icon to change the text of your meme, be creative!</p>
             </li>
             <li>
                 <aside class="icon action-icon email-share"></aside>
-                <p>Share your Meme</p>
-                <p>By clicking on the share button you can send your Meme via e-mail, twitter, MMS, Bluetooth...</p>
+                <p data-l10n-id="helpShareH">Share your MemeAppme</p>
+                <p data-l10n-id="helpShareT">By clicking on the share button you can send your Meme via e-mail, twitter, MMS, Bluetooth...</p>
             </li>
         </ul>
     </article>
 </section>
-
 
 </div>
 
