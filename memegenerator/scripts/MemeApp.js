@@ -1,5 +1,5 @@
 var defaultImage = "style/images/memes/meme-2.png";
-var numImages = 16;
+var numImages = 15;
 
 var picBlob = null;
 var memeGalleryPic = null;
@@ -35,7 +35,6 @@ function init(){
         window.location.href = '#divModalGrid';
     });
 
-t
   console.log("Language is " + navigator.mozL10n.language.code);
 
   Meme(defaultImage, 'canvas', navigator.mozL10n.get("topLine"), navigator.mozL10n.get("bottomLine"));
