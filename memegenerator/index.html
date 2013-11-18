@@ -4,12 +4,12 @@
   <title>Meme.js demo</title>
   <style type="text/css">
 
-@font-face {
-  font-family: 'Coda Caption';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Coda Caption Heavy'), local('CodaCaption-Heavy'), url(style/codac.woff) format('woff');
-}
+  @font-face {
+    font-family: 'Coda Caption';
+    font-style: normal;
+    font-weight: 800;
+    src: local('Coda Caption Heavy'), local('CodaCaption-Heavy'), url(style/codac.woff) format('woff');
+  }
 
   </style>
   <script defer src="scripts/l10n.js" charset="utf-8"></script>
@@ -21,6 +21,7 @@
   <link href="bb/buttons.css" rel="stylesheet" type="text/css">
   <link href="bb/icons/styles/media_icons.css" rel="stylesheet" type="text/css">
   <link href="bb/icons/styles/settings_icons.css" rel="stylesheet" type="text/css">
+  <link href="bb/action_menu.css" rel="stylesheet" type="text/css">
   <link href="bb/input_areas.css" rel="stylesheet" type="text/css">
   <link href="bb/headers.css" rel="stylesheet" type="text/css">
   <link href="bb/lists.css" rel="stylesheet" type="text/css">
@@ -28,84 +29,97 @@
   <script src="scripts/meme.js"></script>
   <script src="scripts/MemeApp.js"></script>
   <script src="scripts/hammer.min.js"></script>
+
 </head>
 <body>
-
+  <div id="canvasph">
   <canvas id="canvas" width="260" height="390"></canvas>
+  </div>
   <div role="toolbar">
     <ul>
       <li><button class="media-icon camera" id="getPictureButton"></button></li>
-      <li><button class="media-icon media-gridview" id="memeGallery"></button></li>
-      <li><button class="action-icon compose" id="changeText"></button></li>
+      <li><button class="media-icon gallery-editphoto" id="changeText"></button></li>
+      <li><button class="action-icon new" id="saveMemeButton"></button></li>
       <li><button class="action-icon email-share" id="shareMemeButton"></button></li>
     </ul>
     <ul>
-      <li><button class="action-icon calendar-agendaview" id="helpButton"></button></li>
+      <li><button class="action-icon settings" id="helpButton"></button></li>
     </ul>
   </div>
 
-<div id="openModal" class="modalDialog">
-  <form role="dialog" data-type="confirm">
-    <section>
-      <input class="myform" type="text" id="top-line" placeholder="top line">
-       <input class="myform" type="text" id="bottom-line" placeholder="bottom line">
-    </section>
-    <menu>
-      <button id="ok-text" role="button" onclick="javascript:updateAndClose()" class="recommend full">Ok</button>
-    </menu>
-  </form>
-</div>
-
-<div id="divModalGrid" class="modalDialog">
-  <section class="skin-dark" role="region">
-  <header class="fixed">
-    <a href="#"><span class="icon icon-back">back</span></a>
-    <h1 data-l10n-id="selectMeme">Select Meme </h1>
-  </header>
-</section>
-  <!--<div id="titleGrid"> Select the Meme <a href="#closeGrid" class="closeGrid">X</a></div>-->
-  <div id="imageGrid">
+  <div id="openModal" class="modalDialog">
+    <form role="dialog" data-type="confirm" accept-charset="utf-8">
+      <section>
+        <input class="myform" type="text" id="top-line" placeholder="top line">
+        <input class="myform" type="text" id="bottom-line" placeholder="bottom line">
+      </section>
+      <menu>
+        <button id="ok-text" role="button" class="recommend full">Ok</button>
+      </menu>
+    </form>
   </div>
-</div>
 
-<div id="help" class="modalDialog">
-<section class="skin-dark" role="region">
-  <header class="fixed">
-    <a href="#"><span class="icon icon-close">close</span></a>
-    <h1 data-l10n-id="helpH">Help</h1>
-  </header>
-<article class="content scrollable header">
-  <div>            
-<section class="example icons settings" style="text-align:left">
-    <article data-type="list">
-        <ul>
-            <li>
-                <aside class="icon media-icon camera"></aside>
-                <p data-l10n-id="helpSelectPictureH">Select a Picture</p>
-                <p data-l10n-id="helpSelectPictureT">Click on Camera Icon to take a picture with your Camera or select a picture from the device gallery</p>
-            </li>
-            
-            <li>
-                <aside class="icon media-icon media-gridview"></aside>
-                <p data-l10n-id="helpSelectFromGalleryH">Select a Predefined Meme</p>
-                <p data-l10n-id="helpSelectFromGalleryT">Click on Grid Icon to select a meme from our Meme gallery</p>
-            </li>
-       
-            <li>
-                <aside class="icon action-icon compose"></aside>
-                <p data-l10n-id="helpChangeTextH">Change the text</p>
-                <p data-l10n-id="helpChangeTextT">Click on the edit icon to change the text of your meme, be creative!</p>
-            </li>
-            <li>
-                <aside class="icon action-icon email-share"></aside>
-                <p data-l10n-id="helpShareH">Share your MemeAppme</p>
-                <p data-l10n-id="helpShareT">By clicking on the share button you can send your Meme via e-mail, twitter, MMS, Bluetooth...</p>
-            </li>
-        </ul>
-    </article>
-</section>
+  <div id="openFilters" class="modalDialog">
+    <form role="dialog" data-type="action" accept-charset="utf-8">
+      <header data-l10n-id="filterSelect">Select your Filter</header>
+      <menu>
+        <button type="button" id="filterGS" data-l10n-id="filterGS">Grey Scale</button>
+        <button type="button" id="filterThreshold" data-l10n-id="filterBW">Black and White</button>
+        <button type="button" id="filterBrightness" data-l10n-id="filterBrightness">Brightness</button>
+        <button type="button" id="filterCancel" data-l10n-id="filterCancel">Cancel</button>
+      </menu>
+    </form>
+  </div>
 
-</div>
+  <div id="divModalGrid" class="modalDialog">
+    <section class="skin-dark" role="region">
+      <header class="fixed">
+        <a href="#"><span class="icon icon-back">back</span></a>
+        <h1 data-l10n-id="selectMeme">Select Meme </h1>
+      </header>
+    </section>
+    <div id="imageGrid">
+    </div>
+  </div>
+
+  <div id="help" class="modalDialog">
+    <section class="skin-dark" role="region">
+      <header class="fixed">
+        <a href="#"><span class="icon icon-close">close</span></a>
+        <h1 data-l10n-id="helpH">Help</h1>
+      </header>
+      <article class="content scrollable header">
+        <div>            
+          <section class="example icons settings" style="text-align:left">
+            <article data-type="list">
+              <ul>
+                <li>
+                  <aside class="icon media-icon camera"></aside>
+                  <p data-l10n-id="helpSelectPictureH">Select a Picture</p>
+                  <p data-l10n-id="helpSelectPictureT">Click on Camera Icon to take a picture with your Camera or select a picture from the device gallery</p>
+                </li>
+                <li>
+                  <aside class="icon media-icon gallery-editphoto"></aside>
+                  <p data-l10n-id="helpFilterH">Select a Predefined Meme</p>
+                  <p data-l10n-id="helpFilterT">Click on Grid Icon to select a meme from our Meme gallery</p>
+                </li>
+                <li>
+                  <aside class="icon action-icon new"></aside>
+                  <p data-l10n-id="helpSaveH">Change the text</p>
+                  <p data-l10n-id="helpSaveT">Click on the edit icon to change the text of your meme, be creative!</p>
+                </li>
+                <li>
+                  <aside class="icon action-icon email-share"></aside>
+                  <p data-l10n-id="helpShareH">Share your MemeAppme</p>
+                  <p data-l10n-id="helpShareT">By clicking on the share button you can send your Meme via e-mail, twitter, MMS, Bluetooth...</p>
+                </li>
+              </ul>
+            </article>
+          </section>
+        </div>
+      </article>
+    </section>
+  </div>
 
 </body>
 </html>

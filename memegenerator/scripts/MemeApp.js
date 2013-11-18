@@ -1,45 +1,48 @@
+// Config
 var defaultImage = "style/images/memes/meme-2.png";
-var numImages = 15;
-
+var numImages = 19;
+// Global vars
 var picBlob = null;
-var memeGalleryPic = null;
+var memeGalleryPic = defaultImage ;
 
 window.addEventListener('load', init);
 
 function init(){
   console.log("--->>> init");
-  console.log("--->>> width " + window.innerWidth)
-  console.log("--->>> height " + window.innerHeight)
 
   var canvas = document.getElementById("canvas");
   canvas.width = window.innerWidth/1.15;
   canvas.height = window.innerHeight/1.15;
   
+  // Listeners are here to avoid CSP issues
   document.getElementById("getPictureButton").addEventListener('click', getpicture);
   document.getElementById("shareMemeButton").addEventListener('click',shareMeme);
-  document.getElementById("changeText").addEventListener('click',function(){window.location.href="#openModal"});
-  document.getElementById("memeGallery").addEventListener('click',function(){window.location.href="#divModalGrid"});
-  document.getElementById("helpButton").addEventListener('click',function(){window.location.href="#help"});
+  document.getElementById("changeText").addEventListener('click',function(){window.location.href="#openFilters";});
+  document.getElementById("ok-text").addEventListener('click', function(){createMeme('');window.location.href="#"});
+  document.getElementById("saveMemeButton").addEventListener('click',saveMeme);
+  document.getElementById("helpButton").addEventListener('click',function(){window.location.href="#help";});
+  document.getElementById("filterGS").addEventListener("click", function(){createMeme('filterGS');window.location.href="#"});
+  document.getElementById("filterBrightness").addEventListener("click", function(){createMeme('filterBrightness');window.location.href="#"});
+  document.getElementById("filterThreshold").addEventListener("click", function(){createMeme('filterThreshold');window.location.href="#"});
+  document.getElementById("filterCancel").addEventListener("click", function(){window.location.href="#"});
 
+  // The only I found out to l10n placeholders...
   document.getElementById("top-line").setAttribute("placeholder", navigator.mozL10n.get("topLinePH"));
   document.getElementById("bottom-line").setAttribute("placeholder", navigator.mozL10n.get("bottomLinePH"));
 
-  var canvas = document.getElementById('canvas');
-    var hammertime = Hammer(canvas).on("hold", function(event) {
-        console.log("longtap");
-        window.location.href = '#openModal';
-    });
+  var hammertime = Hammer(canvasph).on("hold", function(event) {
+    console.log("longtap");
+    window.location.href = '#openModal';
+  });
 
   canvas.addEventListener('click', function(event) {
-        console.log("tap");
-        window.location.href = '#divModalGrid';
-    });
+    console.log("tap");
+    window.location.href = '#divModalGrid';
+  });
 
-  console.log("Language is " + navigator.mozL10n.language.code);
-
-  Meme(defaultImage, 'canvas', navigator.mozL10n.get("topLine"), navigator.mozL10n.get("bottomLine"));
+  Meme(memeGalleryPic, 'canvas', navigator.mozL10n.get("topLine"), navigator.mozL10n.get("bottomLine"));
+  // Preload the images of the pre-defined memes to save time later
   fillImageGrid();
-
 }
 
 function getpicture(evt)
@@ -52,21 +55,91 @@ function getpicture(evt)
   pick.onsuccess = function (){
     console.log("Picture Picked Successfully")
     window.picBlob = this.result.blob;
-    createMeme();
+    window.memeGalleryPic = null;
+    createMeme('');
   }
   pick.onerror = function(){
     console.error("Error while picking picture:", pick.error.name);
   }
-};
+}
 
+function createMeme(filter)
+{
+  filter = filter || '';
+  console.log("--->>> createMeme with filter? " + filter); 
+  if (window.memeGalleryPic !== null)
+  {
+    createMemeFromGallery(window.memeGalleryPic, filter)
+  }
+  else
+  {
+    createMemeFromBlob(filter);
+  }
+}
+
+function createMemeFromBlob(filter)
+{
+  filter = filter || '';
+  console.log("--->>> createMemeFromBlob with filter? " + filter); 
+
+  var img = document.createElement("img");
+
+  img.src = window.URL.createObjectURL(picBlob);
+  Meme(img, 'canvas', 
+        document.getElementById('top-line').value, document.getElementById('bottom-line').value, filter);
+}
+
+function createMemeFromGallery(picture, filter)
+{ 
+  filter = filter || '';
+  console.log("--->>> createMemeFromGallery " + picture + " filter " + filter); 
+  Meme(picture, 'canvas',
+    document.getElementById('top-line').value, document.getElementById('bottom-line').value, filter);
+
+  cv = document.getElementById("canvas");
+
+  cv.toBlob(function(myBlob) {
+      //window.picBlob = myBlob;
+      console.log("saved picBlob for " + picture)
+      window.location.href = '#';
+  });
+}
+
+function saveMeme()
+{
+  console.log("---> saveMeme")
+  var sdcard = navigator.getDeviceStorage("pictures");
+
+  cv = document.getElementById("canvas");
+  cv.toBlob(function(myBlob) {
+    var d = new Date();
+    d = new Date(d.getTime() - d.getTimezoneOffset() * 60000);  
+    var filename = 'meme-' +
+              d.toISOString().slice(0, -5).replace(/[:T]/g, '-') +
+              '.png';
+  
+    var request = sdcard.addNamed(myBlob, filename);
+  
+    request.onsuccess = function () {
+      var name = this.result.name;
+      alert(navigator.mozL10n.get("memeSaved"));
+      console.log('File "' + name + '" successfully wrote on the sdcard storage area');
+    } 
+
+    request.onerror = function () {
+      alert(navigator.mozL10n.get("memeSaveFailed") + " (" + fileName + ")");
+      console.log("Cannot save meme to SDCARd " + this.error.name);
+    }
+  })
+}
+
+// Share the meme through the Activities
 function shareMeme(evt)
 {
   console.log("--->>> shareMeme")
-  createMeme(); // just in case
   cv = document.getElementById("canvas");
   cv.toBlob(function(myBlob) {
 
-    // just in case this is required
     var blobs = [];
     blobs.push(myBlob);
 
@@ -74,75 +147,48 @@ function shareMeme(evt)
       name:"share",
       data:{
         type: "image/*",
-          number: 1,
-          blobs: blobs,
-          filenames: "meme",
-          fullpaths: "meme"
-        }
-      })
+        number: 1,
+        blobs: blobs,
+        filenames: "meme",
+        fullpaths: "meme"
+      }
+    })
 
     share.onerror = function(e) {
-      console.error('share activity error:', share.error.name);};
+      alert(navigator.mozL10n.get("memeShareFailed"));
+      console.error('share activity error:', share.error.name);
+    };
   })
 }
 
-function createMeme()
+function fillImageGrid()
 {
-  console.log("--->>> createMeme"); 
-  if (picBlob == null)
+  console.log("")
+  grid = document.getElementById('imageGrid');
+  ih=""; i = 0;
+  for (var i = 0; i < numImages; i++)
   {
-
-    var img = document.createElement("img");
-    img.src = defaultImage;
-
-    Meme(img, 'canvas', 
-      document.getElementById('top-line').value, document.getElementById('bottom-line').value);
-
+    ih += "<a id='gridimg" + i + "'><img src=\"style/images/previews/preview-" + 
+      i.toString() + ".png\"></a>";
   }
-  else
+  grid.innerHTML = ih;
+
+  for (var i = 0; i < numImages; i++)
   {
-    var img = document.createElement("img");
-    img.src = window.URL.createObjectURL(picBlob);
-    Meme(img, 'canvas', 
-      document.getElementById('top-line').value, document.getElementById('bottom-line').value);
+    var hr = document.getElementById("gridimg" + i);
+    hr.onclick = makeGenerateMemeCallback("style/images/memes/meme-" + i.toString() + ".png");
+    console.log("CLOSURE ADDED")
   }
-  memeGalleryPic = null;
+
+  console.log(ih);
+} 
+
+// Closure for adding listeners to every gallery item
+function makeGenerateMemeCallback(picture)
+{
+  return function(){
+    window.memeGalleryPic = picture;
+    window.picBlob = null;
+    createMemeFromGallery(picture);
+  }
 }
-
-function createMemeFromGallery(picture)
-{ 
-  console.log("--->>> createMemeFromGallery"); 
-  window.memeGalleryPic = picture;
-  Meme(picture, 'canvas',
-    document.getElementById('top-line').value, document.getElementById('bottom-line').value);
-
-  cv = document.getElementById("canvas");
-  cv.toBlob(function(myBlob) {
-      window.picBlob = myBlob;
-      window.location.href = '#';
-  });
-}
-
-  function updateAndClose()
-  {
-    if(window.memeGalleryPic == null)
-      createMeme();
-    else
-      createMemeFromGallery(window.memeGalleryPic);
-    window.location.href = "#close";
-  }
-
-  function fillImageGrid()
-  {
-    grid = document.getElementById('imageGrid');
-    ih="";
-    for (var i = 0; i < numImages; i++)
-      ih += "<a href='javascript:createMemeFromGallery(\"style/images/memes/meme-" +
-            i.toString() + ".png\")'><img src=\"style/images/previews/preview-" + 
-            i.toString() + ".png\"></a>";
-    grid.innerHTML = ih;
-    console.log(ih);
-  }
-
-
-

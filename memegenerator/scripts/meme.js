@@ -47,7 +47,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 */
 
-window.Meme = function(image, canvas, top, bottom) {
+window.Meme = function(image, canvas, top, bottom, filter) {
+
+	console.log("--->> Meme Constructor " + image)
 
 	/*
 	Default top and bottom
@@ -55,6 +57,7 @@ window.Meme = function(image, canvas, top, bottom) {
 
 	top = top || '';
 	bottom = bottom || '';
+	filter = filter || '';
 
 	/*
 	Deal with the canvas
@@ -154,11 +157,9 @@ window.Meme = function(image, canvas, top, bottom) {
 			}
 
 		}
-
 		// Draw!
 		context.fillText(text, x, y, canvas.width * .9);
 		context.strokeText(text, x, y, canvas.width * .9);
-
 	};
 
 	/*
@@ -167,17 +168,53 @@ window.Meme = function(image, canvas, top, bottom) {
 
 	image.onload = function() {
 
-		// Set dimensions
-		//setCanvasDimensions(this.width, this.height);
-
 		// Draw the image
+		console.log("---> meme.js image loaded " + image.src + " width " + canvas.width + " height " + canvas.height)
+		console.log("image "+ image.width + " , " + image.height)
 		context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        switch (filter)
+        {
+          case "filterGS":
+            var imageData = context.getImageData(0,0, canvas.width, canvas.height);
+            for (var i = 0; i < imageData.data.length; i+=4) {
+              var luma = Math.floor(imageData.data[i] * 0.3 +
+                imageData.data[i+1] * 0.59 +
+                imageData.data[i+2] * 0.11);
+                imageData.data[i] = imageData.data[i+1] = imageData.data[i+2] = luma;
+                imageData.data[i+3] = 255;
+            }
+            context.putImageData(imageData, 0, 0);
+            break;
+          case "filterThreshold":
+            var imageData = context.getImageData(0,0, canvas.width, canvas.height);
+            for (var i=0; i<imageData.data.length; i+=4) {
+              var r = imageData.data[i];
+              var g = imageData.data[i+1];
+              var b = imageData.data[i+2];
+              var v = (0.2126*r + 0.7152*g + 0.0722*b >= 128) ? 255 : 0;
+              imageData.data[i] = imageData.data[i+1] = imageData.data[i+2] = v
+            }
+            context.putImageData(imageData, 0, 0);
+            break;
+          case "filterBrightness":
+            var adjustment = 40;
+            var imageData = context.getImageData(0,0, canvas.width, canvas.height);
+            for (var i=0; i<imageData.data.length; i+=4) {
+              imageData.data[i] += adjustment;
+              imageData.data[i+1] += adjustment;
+              imageData.data[i+2] += adjustment;
+            }
+            context.putImageData(imageData, 0, 0);
+            break;
+          default:
+            break;
+        }
 
 		// Draw text!
 		drawText(top, 'top');
 		drawText(bottom, 'bottom');
 
 	};
-
 };
 

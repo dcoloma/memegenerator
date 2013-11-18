@@ -1,12 +1,17 @@
 {
   "name": "Meme Generator",
   "description": "Meme Generator",
+  "version": "1.02",
   "launch_path": "/index.html",
   "developer": {
     "name": "Daniel Coloma",
     "url": "https://twitter.com/danielcoloma"
   },
+  "type": "privileged",
   "default_locale": "es",
+  "permissions" : {
+    "device-storage:pictures":{ "description": "Save memes to Gallery", "access": "readwrite" }
+  },
   "locales": {
     "en-US": {
       "name": "Memes",
