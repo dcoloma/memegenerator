@@ -19,7 +19,7 @@ function init(){
   document.getElementById("shareMemeButton").addEventListener('click',shareMeme);
   document.getElementById("changeText").addEventListener('click',function(){window.location.href="#openFilters";});
   document.getElementById("ok-text").addEventListener('click', function(){createMeme('');window.location.href="#"});
-  document.getElementById("saveMemeButton").addEventListener('click',saveMeme);
+  document.getElementById("saveMemeButton").addEventListener('click',openMemeInGallery);
   document.getElementById("helpButton").addEventListener('click',function(){window.location.href="#help";});
   document.getElementById("filterGS").addEventListener("click", function(){createMeme('filterGS');window.location.href="#"});
   document.getElementById("filterBrightness").addEventListener("click", function(){createMeme('filterBrightness');window.location.href="#"});
@@ -160,6 +160,44 @@ function shareMeme(evt)
     };
   })
 }
+
+// Open the meme in gallery through the Activities
+function openMemeInGallery(evt)
+{
+  console.log("--->>> openMemeInGallery")
+  cv = document.getElementById("canvas");
+  cv.toBlob(function(myBlob) {
+    var d = new Date();
+    d = new Date(d.getTime() - d.getTimezoneOffset() * 60000);  
+    var filename = 'meme-' +
+              d.toISOString().slice(0, -5).replace(/[:T]/g, '-') +
+              '.png';
+
+    var open = new MozActivity({
+      name:"open",
+      data:{
+        type: "image/png",
+        filename: filename,
+        blob: myBlob,
+        allowSave: true,
+      }
+    })
+
+    open.onerror = function(e) {
+      //alert(navigator.mozL10n.get("memeShareFailed"));
+      console.error('Open activity error:', open.error.name);
+      if (this.error.name === 'ActivityCanceled')
+      {
+        return;
+      }
+      else
+      {
+        alert(navigator.mozL10n.get("memeSaveFailed"));
+      }
+    };
+  })
+}
+
 
 function fillImageGrid()
 {
