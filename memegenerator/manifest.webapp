@@ -23,8 +23,12 @@
     }
   },
   "icons": {
-    "64": "/style/icons/meme64.png",
-    "128": "/style/icons/meme128.png"
+    "32": "/style/icons/iconoMeme32.png",
+    "60": "/style/icons/iconoMeme60.png",
+    "64": "/style/icons/iconoMeme64.png",
+    "90": "/style/icons/iconoMeme90.png",
+    "120": "/style/icons/iconoMeme120.png",
+    "128": "/style/icons/iconoMeme128.png"
   },
   "orientation": "portrait-primary"
 }
