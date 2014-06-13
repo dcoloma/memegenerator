@@ -1,9 +1,10 @@
 // Config
 var defaultImage = "style/images/memes/meme-2.png";
-var numImages = 19;
+var numImages = 23;
 // Global vars
 var picBlob = null;
 var memeGalleryPic = defaultImage ;
+var rate;
 
 window.addEventListener('load', init);
 
@@ -43,6 +44,10 @@ function init(){
   Meme(memeGalleryPic, 'canvas', navigator.mozL10n.get("topLine"), navigator.mozL10n.get("bottomLine"));
   // Preload the images of the pre-defined memes to save time later
   fillImageGrid();
+
+  rate = Object.create(fxosRate);
+  rate.init("memes", "1.0", 2, 5, 5, 20, 20, 10);
+  setTimeout(function(){rate.promptRequired()}, 1000);
 }
 
 function getpicture(evt)
@@ -137,6 +142,7 @@ function saveMeme()
 function shareMeme(evt)
 {
   console.log("--->>> shareMeme")
+  rate.logEvent(1);
   cv = document.getElementById("canvas");
   cv.toBlob(function(myBlob) {
 
