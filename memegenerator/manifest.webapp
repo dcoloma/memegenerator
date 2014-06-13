@@ -1,7 +1,7 @@
 {
   "name": "Meme Generator",
   "description": "Meme Generator",
-  "version": "1.02",
+  "version": "1.04",
   "launch_path": "/index.html",
   "developer": {
     "name": "Daniel Coloma",
