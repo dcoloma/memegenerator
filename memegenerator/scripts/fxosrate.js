@@ -154,14 +154,23 @@ var fxosRate = {
     if (rateIt == true)
     {
       this.setLsItem("alreadyRated", "yes");
-      window.open(this.MARKETBASEURL + this.applicationName + "/ratings/add");
+      //window.open(this.MARKETBASEURL + this.applicationName + "/ratings/add");
+      var activity = new MozActivity({
+       name: "marketplace-app-rating",
+       data: {slug: "memes"}
+      });
+      activity.onsuccess = function() {
+       console.log("Rating Page opened");
+      };
+      activity.onerror = function() {
+       console.log(this.error);
+      };
     }
     else
     {
       var later = confirm(navigator.mozL10n.get("wantremindlater"));
       if (later != true)
         this.setLsItem("rateRejected","yes");
-      alert(navigator.mozL10n.get("thankyoumessage"));
     }
   },
 
